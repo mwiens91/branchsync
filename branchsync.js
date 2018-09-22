@@ -36,9 +36,6 @@ try {
   process.exit(1)
 }
 
-// Remember the cwd so we can move back there later
-const cwd = path.resolve('./')
-
 // Execute each branch sync
 for (var project in config['projects']) {
   // Unpack variables
@@ -48,23 +45,11 @@ for (var project in config['projects']) {
   let destinationRemote = config['projects'][project]['destination']['remote']
   let destinationBranch = config['projects'][project]['destination']['branch']
 
-  // Move to the project directory
-  try {
-    process.chdir(projectDirectory)
-  } catch (e) {
-    // Failure!
-    if (e.code === 'ENOENT') {
-      console.log(`Project directory ${projectDirectory} not found!`)
-    } else {
-      console.log(e)
-    }
-
-    // Move on to next project
-    continue
-  }
+  // Build the path to the .git directory for each project
+  let projectGitDirectory = path.resolve(`${projectDirectory.replace(/\/$/, '')}/.git`)
 
   // Fetch source branch
-  exec(`git fetch ${sourceRemote} ${sourceBranch}`,
+  exec(`git --git-dir=${projectGitDirectory} fetch ${sourceRemote} ${sourceBranch}`,
     (error, stdout, stderr) => {
       // Log stdout and stderr
       console.log(`${stdout}`)
@@ -77,7 +62,7 @@ for (var project in config['projects']) {
     })
 
   // Push to destination branch
-  exec(`git push ${destinationRemote} ${destinationBranch}`,
+  exec(`git --git-dir=${projectGitDirectory} push ${destinationRemote} ${destinationBranch}`,
     (error, stdout, stderr) => {
       // Log stdout and stderr
       console.log(`${stdout}`)
@@ -89,6 +74,3 @@ for (var project in config['projects']) {
       }
     })
 }
-
-// Move back to the original working directory
-process.chdir(cwd)
