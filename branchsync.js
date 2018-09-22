@@ -74,7 +74,7 @@ for (var project in config['projects']) {
         // Error fetching
         console.log(`fetch error: ${error}`)
       }
-  })
+    })
 
   // Push to destination branch
   exec(`git push ${destinationRemote} ${destinationBranch}`,
@@ -87,7 +87,7 @@ for (var project in config['projects']) {
         // Error fetching
         console.log(`push error: ${error}`)
       }
-  })
+    })
 }
 
 // Move back to the original working directory
