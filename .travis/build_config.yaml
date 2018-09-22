@@ -1,0 +1,11 @@
+# branchsync config file for Travis build
+
+projects:
+  "branchsync":
+    repository-directory: "branchsyncrepo"
+    source:
+      remote: "origin"
+      branch: "master"
+    destination:
+      remote: "origin"
+      branch: "master"

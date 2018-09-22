@@ -21,13 +21,12 @@ before_install:
 install:
   # Install Codecov and coverage stuff
   - npm install -g codecov istanbul
-  - npm install mocha
 
   # Install requirements
   - npm install
 
 script:
-  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
+  - istanbul cover branchsync.js --config .travis/build_config.yaml
 
 after_success:
   # Upload code coverage to Codecov
