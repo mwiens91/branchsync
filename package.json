@@ -1,6 +1,6 @@
 {
   "name": "branchsync",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Sync Git branches",
   "main": "branchsync.js",
   "bin": "./branchsync.js",
