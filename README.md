@@ -6,4 +6,49 @@
 
 A lightweight Node.js script to pull from one Git branch and to push to
 another. Useful for syncing master branches of projects hosted on, for
-example, both GitHub and Bitbucket. Suitable as a cron job.
+example, both GitHub and Bitbucket. Also useful as a cron job.
+
+## Installation
+
+### npm
+
+To install from npm, run
+
+```
+npm install --global branchsync
+```
+
+### Source
+
+Clone this repository, then install dependencies with
+
+```
+npm install
+```
+
+and run the script with
+
+```
+./branchsync.js
+```
+
+## Usage
+
+The first thing you need to do is to fill out the config file. There's
+an example config file at the base of the repository called
+[config.yaml.example](config.yaml.example). Should be fairly self
+explanatory.
+
+When running the script with no arguments, i.e.,
+
+```
+branchsync
+```
+
+a config file is looked for in `$CWD/config.yaml` where `$CWD` is your
+current working directory. To explicitly pass in a config file path, use
+the `--config` (or `-c`) flag:
+
+```
+branchsync --config /path/to/config.yaml
+```
