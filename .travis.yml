@@ -20,7 +20,8 @@ before_install:
 
 install:
   # Install Codecov and coverage stuff
-  - npm install -g codecov istanbul mocha
+  - npm install -g codecov istanbul
+  - npm install mocha
 
   # Install requirements
   - npm install
