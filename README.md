@@ -52,3 +52,9 @@ the `--config` (or `-c`) flag:
 ```
 branchsync --config /path/to/config.yaml
 ```
+
+### cron scheduling
+
+There's a good chance you'll want to schedule this task, probably with
+cron. A quick Google search (for example, "cron schedule linux") should
+point you in the right direction with this.
