@@ -1,6 +1,6 @@
 # branchsync config file
 
-branch-syncs:
+projects:
   "my-wonderful-project":
     repository-directory: "path/to/repo/dir/here"
     source:
