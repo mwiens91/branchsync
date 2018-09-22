@@ -1,6 +1,6 @@
 {
   "name": "branchsync",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Sync Git branches",
   "main": "branchsync.js",
   "dependencies": {
