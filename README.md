@@ -1,3 +1,5 @@
+[![npm](https://img.shields.io/npm/v/branchsync.svg)](https://www.npmjs.com/package/branchsync)
+
 # branchsync
 
 A lightweight Node.js script to pull from one Git branch and to push to
