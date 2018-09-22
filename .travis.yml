@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - '7'
+  - '8'
+
+env:
+  global:
+    # Encrypted vals for Git setup
+    secure: CP0K69ihA4kBlDN9y3Oy6rEinV8z06ZLpLoQ6NjN8Tcak/z9Dk4wJ4wIEWcQetTVz5TuQLsNXwHVUrfU3+7CRhekqt1cBacxQJ2m0dVdta9KkW6TsRZfdg6vxWhBDzVLWC5MWDeHzJevKmsYdRIOJkBbhVjvE1N6S+Z7B6o3Ib/hjlTgbnN93xrA0DZEgd1Gd4KFMGEqFPsgHvgLJWK0qmR9YEczXsuLWx8nmOo4+zFTdrq5Dw+WO0JzWNP5+U7l12AstmD0ng/9lX1AlBNubgcv8EcUPMMFj3+dmcCWAuxdUYFonZ2C04giQwzGKAMn7YnRODB32qcvqn8CWKE8/Q5qsspo2LTbIwu1J6TJUAg8g6JOdu7yPRqmKJHBzEUkFrarO1lIIBZ7dOoV4NFs9g11fOV01SWL01852nKk+aLQlRDz4ceZ9iwVdXmsCMxUP3zq2uRyIP4GVNr8+kpMhBxWr7vPKS02Q6PRNngJtX3JTfUMfDq6AGrqdZdr6n8MznsLbZ2S7oBmRUM1o7drhTxO6adakjH5LyPFljdQDHjt+erA2pqTAGiUTZOYUbE8D8jePH694IhdoaWgOR5oILaigfVZ42Lm+0rjdcZCAxC/TgOiU+DzSZv1ddh4QnhSN27ORy+ZdUxmCl8zgSNCognSety5JDHBbE3+htEA6O0=
+
+before_install:
+  # Setup ssh key, being careful with encryption, etc.
+  - openssl aes-256-cbc -K $encrypted_6637645bd542_key -iv $encrypted_6637645bd542_iv
+    -in github_deploy_key.enc -out ~\/.ssh/github_deploy_key -d
+  - |
+
+       $(npm bin)/set-up-ssh --key "$encrypted_XXXXXXXXXXXX_key" \
+                             --iv "$encrypted_XXXXXXXXXXXX_iv" \
+                             --path-encrypted-key ".travis/github_deploy_key.enc"
+
+script:
+  - true
