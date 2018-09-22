@@ -1,0 +1,19 @@
+# branchsync config file
+
+branch-syncs:
+  "my-wonderful-project":
+    repository-directory: "path/to/repo/dir/here"
+    source:
+      remote: "my-source-remote"
+      branch: "my-source-branch"
+    destination:
+      remote: "my-destination-remote"
+      branch: "my-destination-branch"
+  "my-other-wonderful-project":
+    repository-directory: "path/to/repo/dir/here"
+    source:
+      remote: "my-source-remote"
+      branch: "my-source-branch"
+    destination:
+      remote: "my-destination-remote"
+      branch: "my-destination-branch"
