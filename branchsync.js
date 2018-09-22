@@ -49,17 +49,22 @@ for (var project in config['projects']) {
   let projectGitDirectory = path.resolve(`${projectDirectory.replace(/\/$/, '')}/.git`)
 
   // Fetch source branch
-  exec(`git --git-dir=${projectGitDirectory} fetch ${sourceRemote} ${sourceBranch}`,
-    (error, stdout, stderr) => {
-      // Log stdout and stderr
-      console.log(`${stdout}`)
-      console.log(`${stderr}`)
+  try {
+    exec(`git --git-dir=${projectGitDirectory} fetch ${sourceRemote} ${sourceBranch}`,
+      (error, stdout, stderr) => {
+        // Log stdout and stderr
+        console.log(`${stdout}`)
+        console.log(`${stderr}`)
 
-      if (error !== null) {
-        // Error fetching
-        console.log(`fetch error: ${error}`)
-      }
-    })
+        if (error !== null) {
+          // Error fetching
+          console.log(`fetch error: ${error}`)
+        }
+      })
+  } catch (e) {
+    // Source fetching failed. Move on to next project.
+    continue
+  }
 
   // Push to destination branch
   exec(`git --git-dir=${projectGitDirectory} push ${destinationRemote} ${destinationBranch}`,
