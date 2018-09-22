@@ -26,7 +26,7 @@ install:
   - npm install
 
 script:
-  - istanbul cover branchsync.js --config .travis/build_config.yaml
+  - istanbul cover branchsync.js -- --config .travis/build_config.yaml
 
 after_success:
   # Upload code coverage to Codecov
