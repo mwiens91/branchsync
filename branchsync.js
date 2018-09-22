@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Load packages
-const exec = require('child_process').exec
+const exec = require('child_process').execSync
 const fs = require('fs')
 const path = require('path')
 const yaml = require('js-yaml')
