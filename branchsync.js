@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 // Load packages
-var fs = require('fs')
-var path = require('path')
-var yaml = require('js-yaml')
+const fs = require('fs')
+const path = require('path')
+const yaml = require('js-yaml')
 
 // Get runtime args with Yargs
-var argv = require('yargs')
+const argv = require('yargs')
   .usage('$0')
   .alias('h', 'help')
   .help()
