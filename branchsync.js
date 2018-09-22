@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
-// Load path package
-let path = require('path')
+// Load packages
+var fs = require('fs')
+var path = require('path')
+var yaml = require('js-yaml')
 
-// Allow help and version runtime flags with Yargs
-let argv = require('yargs')
+// Get runtime args with Yargs
+var argv = require('yargs')
   .usage('$0')
   .alias('h', 'help')
   .help()
@@ -19,6 +21,19 @@ let argv = require('yargs')
   .argv
 
 // Load config file
+try {
+  var config = yaml.safeLoad(fs.readFileSync(argv.config, 'utf8'))
+} catch (e) {
+  // Oh no! Print a message about the error
+  if (e.code === 'ENOENT') {
+    console.log(argv.config + ' not found!')
+  } else {
+    console.log(e)
+  }
+
+  // Exit program
+  process.exit(1)
+}
 
 // Execute each branch sync
 for (let i in [1, 2, 3]) {
