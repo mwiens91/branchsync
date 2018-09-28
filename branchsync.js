@@ -16,8 +16,18 @@ const argv = require('yargs')
     describe: 'path to config file',
     type: 'string',
     nargs: 1,
-    demand: true,
     default: path.resolve('./config.yaml') // is this a sane default?
+  })
+  .option('silent', {
+    alias: 'quiet',
+    describe: 'show no output',
+    type: 'boolean',
+    default: false
+  })
+  .option('verbose', {
+    describe: 'show stdout and stderr',
+    type: 'boolean',
+    default: false
   })
   .argv
 
@@ -37,19 +47,21 @@ try {
 }
 
 // Function to run an executable command
-const exec = function (command) {
-  execSync(command,
-    (error, stdout, stderr) => {
-      // Log stdout and stderr
-      console.log(`${stdout}`)
-      console.log(`${stderr}`)
+const execClosure = (verbose) => {
+  // See
+  // https://nodejs.org/api/child_process.html#child_process_options_stdio
+  let stdioOption
 
-      if (error !== null) {
-        // Error
-        console.log(`error: ${error}`)
-      }
-    })
+  if (verbose) {
+    stdioOption = 'inherit'
+  } else {
+    stdioOption = 'ignore'
+  }
+
+  return (command) => execSync(command, {'stdio': stdioOption})
 }
+
+const exec = execClosure(argv.verbose)
 
 // Execute each branch sync
 for (var project in config['projects']) {
@@ -68,5 +80,8 @@ for (var project in config['projects']) {
     exec(`git -C ${projectDirectory} push ${destinationRemote} ${sourceBranch}:${destinationBranch}`)
   } catch (e) {
     // Syncing this project failed. Move on to next project.
+    if (!argv.silent) {
+      console.error(e)
+    }
   }
 }
