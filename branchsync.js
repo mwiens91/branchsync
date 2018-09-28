@@ -60,9 +60,6 @@ for (var project in config['projects']) {
   let destinationRemote = config['projects'][project]['destination']['remote']
   let destinationBranch = config['projects'][project]['destination']['branch']
 
-  // Build the path to the .git directory for each project
-  let projectGitDirectory = path.resolve(`${projectDirectory.replace(/\/$/, '')}/.git`)
-
   // Perform the sync
   try {
     exec(`git -C ${projectDirectory} fetch ${sourceRemote} ${sourceBranch}`)
