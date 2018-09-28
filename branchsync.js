@@ -45,7 +45,7 @@ const exec = function (command) {
       console.log(`${stderr}`)
 
       if (error !== null) {
-        // Error fetching
+        // Error
         console.log(`error: ${error}`)
       }
     })
@@ -71,6 +71,5 @@ for (var project in config['projects']) {
     exec(`git --git-dir=${projectGitDirectory} push ${destinationRemote} ${sourceBranch}:${destinationBranch}`)
   } catch (e) {
     // Syncing this project failed. Move on to next project.
-    continue
   }
 }
