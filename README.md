@@ -4,6 +4,8 @@
 
 # branchsync
 
+## NOTE: this is a work in progress! Getting some really wacky behavior from the program right now. not sure why :s
+
 A lightweight Node.js script to pull from one Git branch and to push to
 another. Useful for syncing master branches of projects hosted on, for
 example, both GitHub and Bitbucket. Also useful as a cron job.
