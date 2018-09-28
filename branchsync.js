@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Load packages
-const exec = require('child_process').execSync
+const execSync = require('child_process').execSync
 const fs = require('fs')
 const path = require('path')
 const yaml = require('js-yaml')
@@ -36,6 +36,21 @@ try {
   process.exit(1)
 }
 
+// Function to run an executable command
+const exec = function (command) {
+  execSync(command,
+    (error, stdout, stderr) => {
+      // Log stdout and stderr
+      console.log(`${stdout}`)
+      console.log(`${stderr}`)
+
+      if (error !== null) {
+        // Error fetching
+        console.log(`error: ${error}`)
+      }
+    })
+}
+
 // Execute each branch sync
 for (var project in config['projects']) {
   // Unpack variables
@@ -48,34 +63,12 @@ for (var project in config['projects']) {
   // Build the path to the .git directory for each project
   let projectGitDirectory = path.resolve(`${projectDirectory.replace(/\/$/, '')}/.git`)
 
-  // Fetch source branch
+  // Perform the sync
   try {
-    exec(`git --git-dir=${projectGitDirectory} fetch ${sourceRemote} ${sourceBranch}`,
-      (error, stdout, stderr) => {
-        // Log stdout and stderr
-        console.log(`${stdout}`)
-        console.log(`${stderr}`)
-
-        if (error !== null) {
-          // Error fetching
-          console.log(`fetch error: ${error}`)
-        }
-      })
+    exec(`git --git-dir=${projectGitDirectory} fetch ${sourceRemote} ${sourceBranch}`)
+    exec(`git --git-dir=${projectGitDirectory} push ${destinationRemote} ${destinationBranch}`)
   } catch (e) {
-    // Source fetching failed. Move on to next project.
+    // Syncing this project failed. Move on to next project.
     continue
   }
-
-  // Push to destination branch
-  exec(`git --git-dir=${projectGitDirectory} push ${destinationRemote} ${destinationBranch}`,
-    (error, stdout, stderr) => {
-      // Log stdout and stderr
-      console.log(`${stdout}`)
-      console.log(`${stderr}`)
-
-      if (error !== null) {
-        // Error fetching
-        console.log(`push error: ${error}`)
-      }
-    })
 }
