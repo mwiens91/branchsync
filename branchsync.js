@@ -66,7 +66,9 @@ for (var project in config['projects']) {
   // Perform the sync
   try {
     exec(`git --git-dir=${projectGitDirectory} fetch ${sourceRemote} ${sourceBranch}`)
-    exec(`git --git-dir=${projectGitDirectory} push ${destinationRemote} ${destinationBranch}`)
+    exec(`git --git-dir=${projectGitDirectory} checkout ${sourceRemote}/${sourceBranch}`)
+    exec(`git --git-dir=${projectGitDirectory} checkout -B ${sourceBranch}`)
+    exec(`git --git-dir=${projectGitDirectory} push ${destinationRemote} ${sourceBranch}:${destinationBranch}`)
   } catch (e) {
     // Syncing this project failed. Move on to next project.
     continue

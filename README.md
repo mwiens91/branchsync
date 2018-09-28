@@ -34,6 +34,9 @@ and run the script with
 
 ## Usage
 
+**WARNING**: *never* run this script in clones of repositories you are
+actively working in! You may lose uncommited changes due to this script!
+
 The first thing you need to do is to fill out the config file. There's
 an example config file at the base of the repository called
 [config.yaml.example](config.yaml.example). Should be fairly self
